@@ -44,6 +44,7 @@ export class MainView extends React.Component {
 			localStorage.setItem('user', authData.user.Username);
 			this.getMovies(authData.token);
 	}
+
 	onLoggedOut() {
 			localStorage.removeItem('token');
 			localStorage.removeItem('user');
@@ -51,6 +52,7 @@ export class MainView extends React.Component {
 					user: null
 			});
 	}
+
 	getMovies(token) {
 			axios.get(`https://good-movies-origin.herokuapp.com/movies`, {
 					headers: { Authorization: `Bearer ${token}`}
@@ -65,13 +67,55 @@ export class MainView extends React.Component {
 							console.log(error);
 					});
 	}
+  
+	// for testing of .map is not a function
+	getUser = (token) => {
+        const Username = localStorage.getItem('user');
+        axios
+            .get(`https://good-movies-origin.herokuapp.com/users/${Username}/user`, {
+                headers: { Authorization: `Bearer ${token}` },
+            })
+            .then((response) => {
+                this.setState({
+                    Username: response.data.Username,
+                    Password: response.data.Password,
+                    Email: response.data.Email,
+                    Birthday: response.data.Birthday,
+                    FavMovies: response.data.FavMovies,
+                });
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    };
+
+		addToFav(movie) {
+      // let favs = this.state.userData.FavouriteMovies;
+      let favs = this.state.userData.FavMovies;
+      console.log(favs, movie, 'favourites');
+      if (favs.indexOf(movie) < 0) {
+        console.log('inside if condition');
+        favs.push(movie);
+      }
+  
+      this.setState(prevState => ({
+        ...prevState,
+        user: {
+          ...prevState.userData,
+          FavMovies: favs
+        }
+      })
+      );
+    } 
+
 	render() {
-		const movies = this.state;
-		const user = this.props;
+		const {movies, user} = this.state;
+		// ;
+		// const user = this.props;
 
 		return (
 			<Router>
-					<NavbarView user={user} />
+					<NavbarView  />
 					<Container>
 							<Row className="main-view justify-content-md-center">
 									<Route exact path="/" render={() => {
@@ -81,14 +125,15 @@ export class MainView extends React.Component {
 										return (
 											movies.map(m => (
                         // <Col md={3} key={m._id}>
-                        <Col md={3} key={m.id}>
-                          <MovieCard movie={m} />
+                        <Col sm={6} key={m.id}>
+                          <MovieCard movie={m}  
+													/>
                         </Col>
                       ))
 												// <>
 												// 		{movies.map(movie => (
 												// 				<Col md={6} key={movie._id}>
-												// 						<MovieCard movie={movie} onMovieClick={() => {}} />
+												// 						<MovieCard movie={movie}  />
 												// 				</Col>
 												// 		))}
 												// </>
@@ -125,11 +170,11 @@ export class MainView extends React.Component {
 													return <div className="main-view" />;
 											}
 											return (
-													<Col md={8}>
-															<MovieView
-															  	// movie={movies.find(m => m._id === match.params.movieId)}
-																	movie={movies.find(m => m.tite === match.params.Title)}
-																	onBackClick={() => history.goBack()} />
+													<Col md={4}>
+														<MovieView
+														movie={movies.find(m => m.id === match.params.movieId)}
+														//movie={movies.find(m => m.tite === match.params.Title)}
+														onBackClick={() => history.goBack()} addToFav={this.addToFav} />
 													</Col>
 											);
 									}} />
@@ -163,9 +208,10 @@ export class MainView extends React.Component {
 											return (
 													<Col md={8}>
 															<GenreView
-																	genre={movies.find(m => m.Genre.Name === match.params.name).Genre}
+																	genre={movies.find(m => m.Genre.Name === match.params.Name).Genre}
 																	onBackClick={() => history.goBack()}
-																	movies={movies.filter(movie => movie.Genre.Name === match.params.name)}/>
+																	// movies={movies.filter(movie => movie.Genre.Name === match.params.Name)}
+															/>
 													</Col>
 											)
 									}} />
@@ -181,10 +227,12 @@ export class MainView extends React.Component {
 											if (movies.length === 0) return <div className="main-view" />;
 											return (
 													<Col md={8}>
+														{/* <DirectorView Director={movies.find(m => m.Director.Name === match.params.Name).Director}  onBackClick={() => history.goBack()} /> */}
 															<DirectorView
-																	director={movies.find(m => m.Director.Name === match.params.name).Director}
+																	director={movies.find(m => m.Director.Name === match.params.Name).Director}
 																	onBackClick={() => history.goBack()}
-																	movies={movies.filter(movie => movie.Director.Name === match.params.name)} />
+																	//movies={movies.filter(movie => movie.Director.Name === match.params.Name)} 
+															/>
 													</Col>
 											);
 									}} />

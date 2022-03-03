@@ -14,7 +14,7 @@ export class ProfileView extends React.Component {
             Password: null,
             Email: null,
             Birthday: null,
-            FavoriteMovies: [],
+            FavMovies: [],
         };
     }
 
@@ -44,11 +44,11 @@ export class ProfileView extends React.Component {
                     Password: response.data.Password,
                     Email: response.data.Email,
                     Birthday: response.data.Birthday,
-                    FavoriteMovies: response.data.FavoriteMovies,
+                    FavMovies: response.data.FavMovies,
                 });
             })
             .catch(function (error) {
-                console.log(error);
+                console.log(error + 'Get user error');
             });
     };
     // Allow user to edit or update profile
@@ -83,7 +83,7 @@ export class ProfileView extends React.Component {
                 window.open('/profile', '_self');
             })
             .catch(function (error) {
-                console.log(error);
+                console.log(error + 'edit user error');
             });
     };
 
@@ -157,7 +157,7 @@ export class ProfileView extends React.Component {
 
     render() {
         const { movies, onBackClick } = this.props;
-        const { FavoriteMovies, Username, Email, Birthday } = this.state;
+        const { FavMovies, Username, Email, Birthday } = this.state;
 
         if (!Username) {
             return null;
@@ -238,21 +238,21 @@ export class ProfileView extends React.Component {
                 </Row>
                 <Row style={{ marginTop: "20px" }}>
                     <Col>
-                        <h4>{Username} Favorite Movies</h4>
+                        <h4>Favorite Movies</h4>
                     </Col>
                 </Row>
                 <Row>
                     <Col>
                         <Card.Body>
-                            {FavoriteMovies.length === 0 && (
+                            {FavMovies.length === 0 && (
                                 <div className="text-center">No Favorite Movies</div>
                             )}
                             <Row className="favorite-container">
-                                {FavoriteMovies.length > 0 &&
+                                {FavMovies.length > 0 &&
                                     movies.map((movie) => {
                                         if (
                                             movie._id ===
-                                            FavoriteMovies.find((fav) => fav === movie._id)
+                                            FavMovies.find((fav) => fav === movie._id)
                                         ) {
                                             return (
                                                 <Card className="favorite-movie card-content" key={movie._id} >

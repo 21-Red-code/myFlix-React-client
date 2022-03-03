@@ -3,9 +3,20 @@
 }
 
 
+#back-btn, #like-btn {
+  margin: 1rem;
+  padding: 7px 30px;
+}
 
 
-
+.main-nav {
+  background-color: #4faaff !important;
+  margin-bottom: 2rem;
+  font-size: 1.2rem;
+}
+.main-nav #logout {
+  margin-left: 1rem;
+}
 
 
 

@@ -35,7 +35,7 @@ export class DirectorView extends React.Component {
                         <Button variant="outline-light" onClick={() => { onBackClick(); }}>Back</Button>
                     </Card.Body>
                 </Card>
-                <Row>
+                {/* <Row>
                     {movies.map(movie => (
                         <Card className="favorite-movie card-content" key={movie._id} >
                             <Card.Img
@@ -49,7 +49,7 @@ export class DirectorView extends React.Component {
                             </Card.Body>
                         </Card>
                     ))}
-                </Row>
+                </Row> */}
             </Container>
         );
     }

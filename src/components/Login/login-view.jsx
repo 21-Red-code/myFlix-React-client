@@ -74,10 +74,10 @@ export function LoginView(props) {
                     {passwordErr && <p>{passwordErr}</p>}
                   </Form.Group>
                   <Button variant="dark" style={{ color: "white", padding: "1rem", margin: "1.5rem" }} type="submit" onClick={handleSubmit}>
-                    signin
+                    sign in
                     </Button>
                     <Link to={`/register`} className="float-right">
-                      <Button variant="dark" style={{ color: "white", padding: "1rem", margin: "1.5rem"}} type="button"> signup</Button>
+                      <Button variant="dark" style={{ color: "white", padding: "1rem", margin: "1.5rem"}} type="button"> sign up</Button>
                     </Link>
                 </Form>
               </Card.Body>
