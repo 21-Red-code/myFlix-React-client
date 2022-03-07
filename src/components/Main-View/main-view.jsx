@@ -64,7 +64,7 @@ export class MainView extends React.Component {
 				});
 			})
 			.catch(function (error) {
-				console.log(error);
+				console.log(error + "---- get Movies list error (Main-View)----");
 			});
 	}
   
@@ -84,8 +84,8 @@ export class MainView extends React.Component {
                     FavMovies: response.data.FavMovies,
                 });
             })
-            .catch(function (error) {
-                console.log(error);
+            .catch(function (error ) {
+                console.log(error + "----get user error (Main-View)----");
             });
     };
 
@@ -164,9 +164,9 @@ export class MainView extends React.Component {
 										return <div className="main-view" />;
 								}
 								return (
-										<Col md={4}>
+										<Col md={6}>
 											<MovieView
-											movie={movies.find(m => m.id === match.params.movieid)}
+											movie={movies.find(m => m._id === match.params.movieId)}
 											//movie={movies.find(m => m.tite === match.params.Title)}
 											onBackClick={() => history.goBack()} addToFav={this.addToFav} />
 										</Col>

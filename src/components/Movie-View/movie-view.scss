@@ -1,13 +1,30 @@
-#back-btn, #like-btn{
+.moviesContainer {
+  height: 500px;
+  //border: 1px solid red;
+}
+
+
+.movie-poster img {
+  max-width: 300px;
+  height: auto;
+  margin-left: 6rem;
+  margin-bottom: 1rem;
+  border: none;
+  border-radius: 6px;
+}
+
+
+#back-btn,
+#like-btn {
   margin: 1rem;
-  padding: 7px 30px;
+  padding: 5px 20px;
 }
 
-span{
-  font-size: 1.2rem;
+span {
+  font-size: 1.1rem;
 }
 
-.label{
+.label {
   font-weight: bold;
   padding-right: 0.5rem;
 }

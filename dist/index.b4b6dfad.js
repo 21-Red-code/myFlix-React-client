@@ -23004,7 +23004,7 @@ class MainView extends _reactDefault.default.Component {
                 movies: response.data
             });
         }).catch(function(error) {
-            console.log(error);
+            console.log(error + "---- get Movies list error (Main-View)----");
         });
     }
     // for testing of .map is not a function
@@ -23023,7 +23023,7 @@ class MainView extends _reactDefault.default.Component {
                 FavMovies: response.data.FavMovies
             });
         }).catch(function(error) {
-            console.log(error);
+            console.log(error + "----get user error (Main-View)----");
         });
     };
     // addToFav(movie) {
@@ -23121,9 +23121,9 @@ class MainView extends _reactDefault.default.Component {
                                         className: "main-view"
                                     }, void 0, false, void 0, void 0));
                                     return(/*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactBootstrap.Col, {
-                                        md: 4,
+                                        md: 6,
                                         children: /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_movieView.MovieView, {
-                                            movie: movies.find((m)=>m.id === match.params.movieid
+                                            movie: movies.find((m)=>m._id === match.params.movieId
                                             ),
                                             //movie={movies.find(m => m.tite === match.params.Title)}
                                             onBackClick: ()=>history.goBack()
@@ -40468,8 +40468,8 @@ class MovieCard extends _reactDefault.default.Component {
     render() {
         const { movie  } = this.props;
         return(/*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactBootstrap.Col, {
-            sm: 8,
-            className: "movie-card",
+            sm: 10,
+            className: "movie-wrapper",
             children: /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactBootstrap.Card, {
                 children: [
                     /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactBootstrap.Card.Img, {
@@ -40543,7 +40543,8 @@ parcelHelpers.export(exports, "MovieView", ()=>MovieView
 var _jsxDevRuntime = require("react/jsx-dev-runtime");
 var _react = require("react");
 var _reactDefault = parcelHelpers.interopDefault(_react);
-// import axios from 'axios';
+var _axios = require("axios");
+var _axiosDefault = parcelHelpers.interopDefault(_axios);
 // import PropTypes from 'prop-types';
 var _reactRouterDom = require("react-router-dom");
 var _reactBootstrap = require("react-bootstrap");
@@ -40558,15 +40559,30 @@ class MovieView extends _reactDefault.default.Component {
     // componentWillUnmount() {
     // 		document.removeEventListener('keypress', this.keypressCallback);
     // }
+    addToFav(movie) {
+        const token = localStorage.getItem('token');
+        //let url = `https://good-movies-origin.herokuapp.com/users/Username/Movie.id`;
+        let url = "https://good-movies-origin.herokuapp.com/users/" + localStorage.getItem('user') + movie._id;
+        console.log(url);
+        _axiosDefault.default.put(url, {
+        }, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }).then((response)=>{
+            alert("Movie was added to favorites");
+            console.log(movie);
+        });
+    }
     render() {
-        const { movie , onBackClick , addToFav  } = this.props;
+        const { movie , onBackClick  } = this.props;
         return(/*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactBootstrap.Container, {
-            fluid: true,
+            fluid: "lg",
             className: "moviesContainer",
             children: /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactBootstrap.Row, {
-                children: /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactBootstrap.Col, {
-                    children: /*#__PURE__*/ _jsxDevRuntime.jsxDEV("div", {
-                        className: "movie-view",
+                children: [
+                    /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactBootstrap.Col, {
+                        lg: "auto",
                         children: [
                             /*#__PURE__*/ _jsxDevRuntime.jsxDEV("div", {
                                 className: "movie-poster",
@@ -40574,12 +40590,12 @@ class MovieView extends _reactDefault.default.Component {
                                     src: movie.ImagePath
                                 }, void 0, false, {
                                     fileName: "src/components/Movie-View/movie-view.jsx",
-                                    lineNumber: 28,
-                                    columnNumber: 9
+                                    lineNumber: 45,
+                                    columnNumber: 11
                                 }, this)
                             }, void 0, false, {
                                 fileName: "src/components/Movie-View/movie-view.jsx",
-                                lineNumber: 27,
+                                lineNumber: 44,
                                 columnNumber: 8
                             }, this),
                             /*#__PURE__*/ _jsxDevRuntime.jsxDEV("div", {
@@ -40590,22 +40606,22 @@ class MovieView extends _reactDefault.default.Component {
                                         children: "Title: "
                                     }, void 0, false, {
                                         fileName: "src/components/Movie-View/movie-view.jsx",
-                                        lineNumber: 32,
-                                        columnNumber: 9
+                                        lineNumber: 48,
+                                        columnNumber: 11
                                     }, this),
                                     /*#__PURE__*/ _jsxDevRuntime.jsxDEV("span", {
                                         className: "value",
                                         children: movie.Title
                                     }, void 0, false, {
                                         fileName: "src/components/Movie-View/movie-view.jsx",
-                                        lineNumber: 33,
-                                        columnNumber: 9
+                                        lineNumber: 49,
+                                        columnNumber: 11
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "src/components/Movie-View/movie-view.jsx",
-                                lineNumber: 31,
-                                columnNumber: 8
+                                lineNumber: 47,
+                                columnNumber: 10
                             }, this),
                             /*#__PURE__*/ _jsxDevRuntime.jsxDEV("div", {
                                 className: "movie-title",
@@ -40615,22 +40631,22 @@ class MovieView extends _reactDefault.default.Component {
                                         children: "Year: "
                                     }, void 0, false, {
                                         fileName: "src/components/Movie-View/movie-view.jsx",
-                                        lineNumber: 37,
-                                        columnNumber: 9
+                                        lineNumber: 52,
+                                        columnNumber: 11
                                     }, this),
                                     /*#__PURE__*/ _jsxDevRuntime.jsxDEV("span", {
                                         className: "value",
                                         children: movie.Year
                                     }, void 0, false, {
                                         fileName: "src/components/Movie-View/movie-view.jsx",
-                                        lineNumber: 38,
-                                        columnNumber: 9
+                                        lineNumber: 53,
+                                        columnNumber: 11
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "src/components/Movie-View/movie-view.jsx",
-                                lineNumber: 36,
-                                columnNumber: 8
+                                lineNumber: 51,
+                                columnNumber: 10
                             }, this),
                             /*#__PURE__*/ _jsxDevRuntime.jsxDEV("div", {
                                 className: "movie-description",
@@ -40640,22 +40656,22 @@ class MovieView extends _reactDefault.default.Component {
                                         children: "Description: "
                                     }, void 0, false, {
                                         fileName: "src/components/Movie-View/movie-view.jsx",
-                                        lineNumber: 42,
-                                        columnNumber: 9
+                                        lineNumber: 56,
+                                        columnNumber: 11
                                     }, this),
                                     /*#__PURE__*/ _jsxDevRuntime.jsxDEV("span", {
                                         className: "value",
                                         children: movie.Description
                                     }, void 0, false, {
                                         fileName: "src/components/Movie-View/movie-view.jsx",
-                                        lineNumber: 43,
-                                        columnNumber: 9
+                                        lineNumber: 57,
+                                        columnNumber: 11
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "src/components/Movie-View/movie-view.jsx",
-                                lineNumber: 41,
-                                columnNumber: 8
+                                lineNumber: 55,
+                                columnNumber: 10
                             }, this),
                             /*#__PURE__*/ _jsxDevRuntime.jsxDEV("div", {
                                 className: "movie-genre",
@@ -40665,29 +40681,22 @@ class MovieView extends _reactDefault.default.Component {
                                         children: "Genre: "
                                     }, void 0, false, {
                                         fileName: "src/components/Movie-View/movie-view.jsx",
-                                        lineNumber: 47,
-                                        columnNumber: 9
+                                        lineNumber: 60,
+                                        columnNumber: 11
                                     }, this),
                                     /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactRouterDom.Link, {
                                         to: `/genres/${movie.Genre.Name}`,
-                                        children: /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactBootstrap.Button, {
-                                            variant: "link",
-                                            children: movie.Genre.Name
-                                        }, void 0, false, {
-                                            fileName: "src/components/Movie-View/movie-view.jsx",
-                                            lineNumber: 49,
-                                            columnNumber: 10
-                                        }, this)
+                                        children: movie.Genre.Name
                                     }, void 0, false, {
                                         fileName: "src/components/Movie-View/movie-view.jsx",
-                                        lineNumber: 48,
-                                        columnNumber: 9
+                                        lineNumber: 61,
+                                        columnNumber: 11
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "src/components/Movie-View/movie-view.jsx",
-                                lineNumber: 46,
-                                columnNumber: 8
+                                lineNumber: 59,
+                                columnNumber: 10
                             }, this),
                             /*#__PURE__*/ _jsxDevRuntime.jsxDEV("div", {
                                 className: "movie-director",
@@ -40697,30 +40706,32 @@ class MovieView extends _reactDefault.default.Component {
                                         children: "Director: "
                                     }, void 0, false, {
                                         fileName: "src/components/Movie-View/movie-view.jsx",
-                                        lineNumber: 54,
-                                        columnNumber: 9
+                                        lineNumber: 68,
+                                        columnNumber: 11
                                     }, this),
                                     /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactRouterDom.Link, {
                                         to: `/directors/${movie.Director.Name}`,
-                                        children: /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactBootstrap.Button, {
-                                            variant: "link",
-                                            children: movie.Director.Name
-                                        }, void 0, false, {
-                                            fileName: "src/components/Movie-View/movie-view.jsx",
-                                            lineNumber: 56,
-                                            columnNumber: 10
-                                        }, this)
+                                        children: movie.Director.Name
                                     }, void 0, false, {
                                         fileName: "src/components/Movie-View/movie-view.jsx",
-                                        lineNumber: 55,
-                                        columnNumber: 9
+                                        lineNumber: 69,
+                                        columnNumber: 11
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "src/components/Movie-View/movie-view.jsx",
-                                lineNumber: 53,
-                                columnNumber: 8
-                            }, this),
+                                lineNumber: 67,
+                                columnNumber: 10
+                            }, this)
+                        ]
+                    }, void 0, true, {
+                        fileName: "src/components/Movie-View/movie-view.jsx",
+                        lineNumber: 43,
+                        columnNumber: 7
+                    }, this),
+                    /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactBootstrap.Col, {
+                        lg: "auto",
+                        children: [
                             /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactBootstrap.Button, {
                                 id: "back-btn",
                                 variant: "primary",
@@ -40729,40 +40740,36 @@ class MovieView extends _reactDefault.default.Component {
                                 children: "Back"
                             }, void 0, false, {
                                 fileName: "src/components/Movie-View/movie-view.jsx",
-                                lineNumber: 60,
-                                columnNumber: 8
+                                lineNumber: 76,
+                                columnNumber: 9
                             }, this),
                             /*#__PURE__*/ _jsxDevRuntime.jsxDEV(_reactBootstrap.Button, {
                                 id: "like-btn",
                                 variant: "primary",
                                 type: "submit",
-                                onClick: ()=>addToFav()
+                                onClick: ()=>this.addToFav(movie)
                                 ,
                                 children: "Like"
                             }, void 0, false, {
                                 fileName: "src/components/Movie-View/movie-view.jsx",
-                                lineNumber: 61,
-                                columnNumber: 8
+                                lineNumber: 77,
+                                columnNumber: 10
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "src/components/Movie-View/movie-view.jsx",
-                        lineNumber: 26,
-                        columnNumber: 7
+                        lineNumber: 75,
+                        columnNumber: 9
                     }, this)
-                }, void 0, false, {
-                    fileName: "src/components/Movie-View/movie-view.jsx",
-                    lineNumber: 25,
-                    columnNumber: 6
-                }, this)
-            }, void 0, false, {
+                ]
+            }, void 0, true, {
                 fileName: "src/components/Movie-View/movie-view.jsx",
-                lineNumber: 24,
+                lineNumber: 42,
                 columnNumber: 5
             }, this)
         }, void 0, false, {
             fileName: "src/components/Movie-View/movie-view.jsx",
-            lineNumber: 23,
+            lineNumber: 41,
             columnNumber: 4
         }, this));
     }
@@ -40773,7 +40780,7 @@ class MovieView extends _reactDefault.default.Component {
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","./movie-view.scss":"36SD1","react-router-dom":"cHIiW","react-bootstrap":"3AD9A","@parcel/transformer-js/src/esmodule-helpers.js":"a3QAw","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"9xJbx"}],"36SD1":[function() {},{}],"dDkXk":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","./movie-view.scss":"36SD1","react-router-dom":"cHIiW","react-bootstrap":"3AD9A","@parcel/transformer-js/src/esmodule-helpers.js":"a3QAw","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"9xJbx","axios":"jo6P5"}],"36SD1":[function() {},{}],"dDkXk":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$d31d = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -41514,7 +41521,7 @@ class ProfileView extends _reactDefault.default.Component {
                 FavMovies: response.data.FavMovies
             });
         }).catch(function(error) {
-            console.log(error + 'Get user error');
+            console.log(error + '----Get user error (Profile-View)----');
         });
     };
     // Allow user to edit or update profile

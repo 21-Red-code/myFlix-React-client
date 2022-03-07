@@ -44,11 +44,11 @@ export class ProfileView extends React.Component {
 					Password: response.data.Password,
 					Email: response.data.Email,
 					Birthday: response.data.Birthday,
-					FavMovies: response.data.FavMovies,
+					FavMovies: response.data.FavMovies
 				});
 			})
 			.catch(function (error) {
-				console.log(error + 'Get user error');
+				console.log(error + '----Get user error (Profile-View)----');
 			});
 	};
 	// Allow user to edit or update profile
