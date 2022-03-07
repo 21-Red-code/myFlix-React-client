@@ -2,7 +2,9 @@
   color: steelblue;
 }
 
-
+Button {
+  width: 120px;
+}
 #back-btn, #like-btn {
   margin: 1rem;
   padding: 7px 30px;

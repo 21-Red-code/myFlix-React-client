@@ -9,14 +9,14 @@ export class MovieCard extends React.Component {
 	render() {
 		const { movie } = this.props;
 		return (
-			<Col sm={8} className="movie-card" align="center">
+			<Col sm={8} className="movie-card" >
 			  <Card>
 				  <Card.Img variant="top" src={movie.ImagePath} />
 				  <Card.Body>
 				  	<Card.Title>{movie.Title}</Card.Title>
-				  	<Card.Text>{movie.Description}</Card.Text>
+				  	{/* <Card.Text>{movie.Description}</Card.Text> */}
 				  	<Link to={`/movies/${movie._id}`}>
-				  		<Button variant="primary">Open</Button>
+				  		<Button variant="primary" >Open</Button>
 				  	</Link>
 				  </Card.Body>
 			  </Card>

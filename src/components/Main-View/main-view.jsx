@@ -21,7 +21,7 @@ export class MainView extends React.Component {
 			// Initial state is set to null
 			this.state = {
 					movies: [],
-					selectedMovie: null,
+					//selectedMovie: null,
 					user: null
 			};
 	}
@@ -152,7 +152,7 @@ export class MainView extends React.Component {
 										</Col>
 								);
 						}} />
-						<Route path="/movies/:Title" render={({ match, history }) => {
+						<Route path="/movies/:movieId" render={({ match, history }) => {
 								if (!user) {
 										return (
 												<Col>
