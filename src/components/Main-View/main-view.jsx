@@ -12,8 +12,8 @@ import { ProfileView } from '../User-Profile/profile-view';
 import { GenreView } from '../Genre/genre-view';
 import { DirectorView } from '../Director/director-view';
 import  {NavbarView}  from '../Navbar/navbar-view';
-import './main-view.scss';
 
+import './main-view.scss';
 
 export class MainView extends React.Component {
 	constructor() {
@@ -88,24 +88,6 @@ export class MainView extends React.Component {
                 console.log(error + "----get user error (Main-View)----");
             });
     };
-
-		// addToFav(movie) {
-    //   // let favs = this.state.userData.FavouriteMovies;
-    //   let favs = this.state.userData.FavMovies;
-    //   console.log(favs, movie, 'favourites');
-    //   if (favs.indexOf(movie) < 0) {
-    //     console.log('inside if condition');
-    //     favs.push(movie);
-      
-    //   this.setState(prevState => ({
-    //     ...prevState,
-    //     user: {
-    //       ...prevState.userData,
-    //       FavMovies: favs
-    //     }
-    //   })
-    //   );
-    // }}
 
 	render() {
 	const {movies, user} = this.state;

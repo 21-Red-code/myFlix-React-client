@@ -17,11 +17,14 @@ export class MovieView extends React.Component {
 	// componentWillUnmount() {
 	// 		document.removeEventListener('keypress', this.keypressCallback);
 	// }
+
   addToFav(movie) {
+		const Username = localStorage.getItem('user');
     const token = localStorage.getItem('token');
-    //let url = `https://good-movies-origin.herokuapp.com/users/Username/Movie.id`;
-    let url = "https://good-movies-origin.herokuapp.com/users/" + localStorage.getItem('user')
-        + movie._id;
+		const MovieId = movie._id
+    let url = `https://good-movies-origin.herokuapp.com/users/${Username}/${MovieId}`;
+    // let url = "https://good-movies-origin.herokuapp.com/users/" + localStorage.getItem('user')
+      // + movie._id;
     console.log(url);
     axios
         .put(url, {}, {

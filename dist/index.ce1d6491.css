@@ -13,6 +13,11 @@ Button {
 .movie-wrapper Img {
   height: 100%;
 }
+
+#image {
+  width: 100%;
+  max-height: 512px;
+}
 .moviesContainer {
   height: 500px;
 }
@@ -51,6 +56,19 @@ span {
   margin-left: 1rem;
 }
 
+#favorite-movie {
+  border: 2px solid #d0d1e4;
+  height: 91%;
+}
 
+#fav-image {
+  width: 100%;
+  min-height: 300px;
+  max-height: 350px;
+}
+
+#fav-header {
+  margin-top: 1.5rem;
+}
 
 /*# sourceMappingURL=index.ce1d6491.css.map */
