@@ -6,7 +6,7 @@ import { Container, Col, Row } from 'react-bootstrap';
 import { connect } from 'react-redux';
 
 import VisibilityFilterInput from '../visibility-filter-input/visibility-filter-input';
-import { MovieCard } from '../movie-card/movie-card';
+import { MovieCard } from '../Movie-Card/movie-card';
 
 const mapStateToProps = state => {
     const { visibilityFilter } = state;
