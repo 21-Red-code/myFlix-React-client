@@ -26,6 +26,7 @@ function MoviesList(props) {
     return < >
             <Col md={6} id="search-box" ><VisibilityFilterInput visibilityFilter={visibilityFilter} /></Col>
             <Col md={6}></Col>
+            <Col md={12}></Col>
             {filteredMovies.map(m => (
               <MovieCard movie={m} />
             ))}
