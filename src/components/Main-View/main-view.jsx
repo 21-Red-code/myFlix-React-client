@@ -9,7 +9,7 @@ import { setUser } from '../../actions/actions';//actions user
 // import { Link } from 'react-router-dom';
 import { Container, Row, Col } from 'react-bootstrap';
 
-import MoviesList from '../Movies-list/movies-list'
+import MoviesList from '../Movies-List/movies-list'
 import { LoginView } from '../Login/login-view';
 import { RegistrationView } from '../Register/register';
 //import { MovieCard } from '../Movie-Card/movie-card';
