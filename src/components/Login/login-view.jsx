@@ -59,7 +59,7 @@ export function LoginView(props) {
       <Row>
         <Col>
           <CardGroup>
-            <Card bg="primary" text="light" border="light">
+            <Card id="login-card" text="light" border="light">
               <Card.Body>
                 <Card.Title>Welcome</Card.Title>
                 <Form>
@@ -73,11 +73,11 @@ export function LoginView(props) {
                     <Form.Control type="password" onChange={e => setPassword(e.target.value)} />
                     {passwordErr && <p>{passwordErr}</p>}
                   </Form.Group>
-                  <Button variant="dark" style={{ color: "white", padding: "1rem", margin: "1.5rem" }} type="submit" onClick={handleSubmit}>
+                  <Button variant="dark" style={{ color: "white", padding: "0.5rem", margin: "1.5rem" }} type="submit" onClick={handleSubmit}>
                     sign in
                     </Button>
                     <Link to={`/register`} className="float-right">
-                      <Button variant="dark" style={{ color: "white", padding: "1rem", margin: "1.5rem"}} type="button"> sign up</Button>
+                      <Button variant="dark" style={{ color: "white", padding: "0.5rem", margin: "1.5rem"}} type="button"> sign up</Button>
                     </Link>
                 </Form>
               </Card.Body>

@@ -1,12 +1,18 @@
 import React from 'react';
 import axios from 'axios';
+import { connect } from 'react-redux';
+
 import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
+import { setMovies } from '../../actions/actions';//actions movies
+import { setUser } from '../../actions/actions';//actions user
 // import PropTypes from 'prop-types';
 // import { Link } from 'react-router-dom';
 import { Container, Row, Col } from 'react-bootstrap';
+
+import MoviesList from '../movies-list/movies-list'
 import { LoginView } from '../Login/login-view';
 import { RegistrationView } from '../Register/register';
-import { MovieCard } from '../Movie-Card/movie-card';
+//import { MovieCard } from '../Movie-Card/movie-card';
 import { MovieView } from '../Movie-View/movie-view';
 import { ProfileView } from '../User-Profile/profile-view';
 import { GenreView } from '../Genre/genre-view';
@@ -15,12 +21,12 @@ import  {NavbarView}  from '../Navbar/navbar-view';
 
 import './main-view.scss';
 
-export class MainView extends React.Component {
+class MainView extends React.Component {
 	constructor() {
 			super();
 			// Initial state is set to null
 			this.state = {
-					movies: [],
+					// movies: [],
 					//selectedMovie: null,
 					user: null
 			};
@@ -58,10 +64,8 @@ export class MainView extends React.Component {
 			headers: { Authorization: `Bearer ${token}`}
 		})
 			.then(response => {
-				// Assign the result to the state
-				this.setState({
-					movies: response.data
-				});
+				// Action
+					this.props.setMovies(response.data);
 			})
 			.catch(function (error) {
 				console.log(error + "---- get Movies list error (Main-View)----");
@@ -76,13 +80,7 @@ export class MainView extends React.Component {
                 headers: { Authorization: `Bearer ${token}` },
             })
             .then((response) => {
-                this.setState({
-                    Username: response.data.Username,
-                    Password: response.data.Password,
-                    Email: response.data.Email,
-                    Birthday: response.data.Birthday,
-                    FavMovies: response.data.FavMovies,
-                });
+              this.setState({ user: response.data });
             })
             .catch(function (error ) {
                 console.log(error + "----get user error (Main-View)----");
@@ -90,33 +88,21 @@ export class MainView extends React.Component {
     };
 
 	render() {
-	const {movies, user} = this.state;
-	// ;
-	// const user = this.props;
+	  let { movies } = this.props;
+    //let { user } = this.props;
+		//from CF I have to check props/state (if I have issue later  will use user as state and remove SET_USER action)
+    let { user } = this.state;
 	return (
 		<Router>
-			<NavbarView  />
 			<Container>
+				<NavbarView  />
 				<Row className="main-view justify-content-md-center">
 						<Route exact path="/" render={() => {
 							if (!user) {
 									return <Redirect to="/login" />;
 							}
-							return (
-								movies.map(m => (
-                  <Col sm={6} key={m.id}>
-                    <MovieCard movie={m}  
-										/>
-                  </Col>
-                ))
-									// <>
-									// 		{movies.map(movie => (
-									// 				<Col md={6} key={movie._id}>
-									// 						<MovieCard movie={movie}  />
-									// 				</Col>
-									// 		))}
-									// </>
-							);
+							if (movies.length === 0) return <div className="main-view" />;
+							return <MoviesList movies={movies}  />
 						}} />
 						<Route path="/login" render={() => {
 								if (user) {
@@ -146,7 +132,7 @@ export class MainView extends React.Component {
 										return <div className="main-view" />;
 								}
 								return (
-										<Col md={6}>
+										<Col sm={6} >
 											<MovieView
 											movie={movies.find(m => m._id === match.params.movieId)}
 											//movie={movies.find(m => m.tite === match.params.Title)}
@@ -215,3 +201,12 @@ export class MainView extends React.Component {
 	);
 	}
 }
+
+let mapStateToProps = state => {
+  return {
+    movies: state.movies,
+    user: state.user
+  }
+}
+//mapStateToProps is a function that—if defined—will allow the component (the one you want to connect) to subscribe to store updates
+export default connect(mapStateToProps, { setMovies } )(MainView);
