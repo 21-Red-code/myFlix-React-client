@@ -4,7 +4,7 @@
   "description": "a movie web-app built on React",
   "main": "src/index.html",
   "scripts": {
-    "start": "parcel src/index.html",
+    
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Red-Coder",
